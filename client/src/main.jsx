@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { ThirdwebProvider , ChainId} from "@thirdweb-dev/react";
 import './index.css';
+import { StateContextProvider } from "./context";
 const activeChain = "ethereum";
 
 const container = document.getElementById("root");
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <ThirdwebProvider activeChain={activeChain} desiredChainId={ChainId.Goerli}>
         <Router>
-          <App />
+          <StateContextProvider>
+            <App />
+          </StateContextProvider>
         </Router>
     </ThirdwebProvider>
   </React.StrictMode>
