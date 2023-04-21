@@ -3,6 +3,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { ThirdwebProvider , ChainId} from "@thirdweb-dev/react";
+import {Sepolia} from '@thirdweb-dev/chains';
 import './index.css';
 import { StateContextProvider } from "./context";
 const activeChain = "ethereum";
@@ -11,7 +12,7 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={activeChain} desiredChainId={ChainId.Goerli}>
+    <ThirdwebProvider activeChain={Sepolia} desiredChainId={ChainId.Goerli}>
         <Router>
           <StateContextProvider>
             <App />
