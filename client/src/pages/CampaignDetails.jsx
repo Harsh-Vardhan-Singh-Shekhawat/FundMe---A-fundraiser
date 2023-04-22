@@ -20,11 +20,16 @@ const CampaignDetails = () => {
 
   const remDays = daysLeft(location.state.campaign.deadline);
 
-
+  const donateAmount = (event) => {
+    // console.log(event.target.value)
+    setAmount(event.target.value)
+  }
+ 
   const fetchDonators = async (pId) => {
     const data = await getCampaigns(location.state.campaign.pId);
    
     setDonators(data);
+    
   }
 
   useEffect(() => {
@@ -35,7 +40,7 @@ const CampaignDetails = () => {
     setIsLoading(true);
 
     await donate(location.state.campaign.pId, amount); 
-    console.log(location.state.campaign.pId)
+    // console.log(location.state.campaign.pId)
     navigate('/')
     setIsLoading(false);
   }
@@ -71,13 +76,12 @@ const CampaignDetails = () => {
         <div>
           <h4 className="font-epilogue font-semibold text-[18px] text-[#808191] uppercase">CREATOR </h4>
 
-          <div className="mt-[20px] flex flex-row bg-[#dadde0] p-2 rounded-[10px]  items-center flex-wrap gap-[14px]">
+          <div className="mt-[20px] flex flex-row  p-2 rounded-[10px]  items-center flex-wrap gap-[14px]">
             <div className="w-[52px] h-[52px] flex items-center justify-center rounded-full bg-[#2c2f32] cursor-pointer">
               <img src={thirdweb} alt="user" className="w-[60%] h-[60%] object-contain"/>
-              {/* <p className='text-[#808191] bg-[#808191] font-epilogue'>{location.state.campaign.address}</p> */}
             </div>
             <div>
-              <h4 className="font-epilogue font-semibold text-[14px] text-white break-all">{location.state.campaign.owner}</h4>
+              <h4 className="font-epilogue font-semibold text-[14px] text-[#808191] break-all">{location.state.campaign.owner}</h4>
               <p className="mt-[4px] font-epilogue font-normal text-[12px] text-[#808191]">Campaigns</p>
             </div>
           </div>
@@ -91,20 +95,20 @@ const CampaignDetails = () => {
             </div>
         </div>
 
-        <div>
+        {/* <div>
           <h4 className="font-epilogue font-semibold text-[18px] text-[#808191] uppercase">Donators</h4>
 
             <div className="mt-[20px] flex flex-col gap-4">
               {donators.length > 0 ? donators.map((item, index) => (
                 <div key={`${item.donator}-${index}`} className="flex justify-between items-center gap-4">
-                  <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-ll">{index + 1 || ""}. {item.donator }</p>
+                  <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-ll">{index + 1}. {item.donator }</p>
                   <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll">{item.donation}</p>
                 </div>
               )) : (
                 <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">No donators yet. Be the first one!</p>
               )}
             </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex-1">
@@ -117,11 +121,11 @@ const CampaignDetails = () => {
           <div className="mt-[30px]">
             <input 
               type="number"
-              placeholder="ETH 0.1"
+              placeholder="0.01 ETH"
               step="0.01"
               className="w-full py-[10px] sm:px-[20px] px-[15px] outline-none border-[1px] border-[#3a3a43] bg-transparent font-epilogue text-[#808191] text-[18px] leading-[30px] placeholder:text-[#4b5264] rounded-[10px]"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={donateAmount}
             />
 
             <div className="my-[20px] p-4 bg-[#dadde0] border-[3px] rounded-[10px]">
@@ -133,7 +137,7 @@ const CampaignDetails = () => {
               btnType="button"
               title="Fund Campaign"
               styles="w-full h-12 bg-[#8c6dfd]"
-              handleClick={()=> handleDonate(amount)}
+              handleClick={handleDonate}
             />
           </div>
         </div>

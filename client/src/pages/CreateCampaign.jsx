@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import CustomButton from "../components/CustomButton";
 import { useStateContext } from "../context";
 import { checkIfImage } from "../utils";
+import Loader from "../components/Loader";
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
@@ -19,9 +20,6 @@ const CreateCampaign = () => {
   });
 
   const formChangeHandler = (e) => {
-    // console.log  (e.target)
-    // console.log(e.target.value)
-    // console.log(e.target.name)
     setForm((prevData) => ({
       ...prevData,
       [e.target.name]:e.target.value,
@@ -55,7 +53,7 @@ const CreateCampaign = () => {
 
   return (
     <div className="bg-[#f0eaea] flex justify-center items-center flex-col  rounded-[10px] sm:p-10 p-4">
-      {isLoading && "Loader..."}
+      {isLoading && <Loader />}
       <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
           Start A Campaign
