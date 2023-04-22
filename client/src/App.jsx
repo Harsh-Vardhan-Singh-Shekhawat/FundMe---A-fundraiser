@@ -5,9 +5,10 @@ import Home from './pages/Home'
 import Profile from './pages/Profile';
 import CreateCampaign from './pages/CreateCampaign';
 import CampaignDetails from './pages/CampaignDetails';
-
+import NoPageFound from './pages/NoPageFound';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar'
+import CampaignForm from './pages/CampaignForm';
 
 const App = () => {
   return (
@@ -23,7 +24,8 @@ const App = () => {
           <Route path="/" element={<Home />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/create-campaign" element={<CreateCampaign/>}/>
-          <Route path="/campaign-details/:id " element={<CampaignDetails />}/>
+          <Route path="/campaign-details/:id" element={<CampaignDetails />}/>
+          <Route path='*' element={<NoPageFound />} />
         </Routes>
       </div>
     </div>

@@ -43,7 +43,14 @@ const CreateCampaign = () => {
         setForm({...form, image:""});
       }
     })
-
+    setForm({
+      createrName: "",
+      title: "",
+      description: "",
+      target: "",
+      deadline: "",
+      image: "",
+    })
   };
 
   return (

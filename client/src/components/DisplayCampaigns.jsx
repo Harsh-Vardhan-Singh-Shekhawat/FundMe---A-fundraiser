@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import FundCard from './FundCard'
 import { loader } from "../assets";
 
-const DisplayCampaigns = ({title, isLoading, campaigns}) => {
+const DisplayCampaigns = ({ title,isLoading, campaigns}) => {
   const navigate = useNavigate();
-
+  console.log(campaigns)
+ 
   const handleNavigate = (campaign) => {
-    navigate(`/campaign-details/${campaign.title}`,{state:campaign});
+    // console.log(campaign)
+    navigate(`/campaign-details/${campaign.title}`,{state:{campaign}});
   }
 
   return (
@@ -15,7 +17,7 @@ const DisplayCampaigns = ({title, isLoading, campaigns}) => {
       <h1 className="font-epilogue font-semibold test-[18px] text-white text-left">
         {title} ({campaigns.length})
       </h1>
-      <div>
+      <div className="flex flex-wrap   ">
         {isLoading && (
           <img
             src={loader}
@@ -34,11 +36,9 @@ const DisplayCampaigns = ({title, isLoading, campaigns}) => {
           campaigns.length > 0 &&
           campaigns.map((campaign) => (
             <FundCard
-              key={campaign.id}
+              key={campaign.pId}
               {...campaign}
-              handleClick={() => {
-                handleNavigate(campaign);
-              }}
+              handleClick={() => {handleNavigate(campaign)}}
             />
           ))}
       </div>

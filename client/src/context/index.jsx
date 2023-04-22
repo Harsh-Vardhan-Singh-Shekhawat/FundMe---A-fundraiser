@@ -35,7 +35,7 @@ export const StateContextProvider = ({ children }) => {
   };
 
   const getCampaigns = async (pId) => {
-    console.log(pId)
+    // console.log(pId)
     // const campaigns = await contract.call('donatorList', [pId]);
     const campaigns = await contract.call('donatorList');
 
@@ -50,7 +50,42 @@ export const StateContextProvider = ({ children }) => {
         image:campaign.image,
         pId:i
     }))
+
+    // console.log(parsedCampaigns);
     return (parsedCampaigns);
+  }
+
+  const getUserCampaign = async () => {
+    const allCampaigns = await getCampaigns();
+
+    const filteredCampaigns = allCampaigns.filter((campaign) => (
+      campaign.owner === address
+    ))
+
+    return filteredCampaigns;
+  }
+
+  const donate = async (pId,amount) => {
+    const data = await contract.call('donateToCampaign', pId, {
+      value:ethers.utils.parseEther(amount)
+    });
+
+    return data;  
+  }
+
+  const getDonations = async (pId) => {
+    const donations = await contract.call('getDonators',pId);
+    const numberOfDonations = donations[0].length;
+    
+    const parsedDonations = [];
+
+    for(let i = 0;i<numberOfDonations;i++) {
+      parsedDonations.push({
+        donator: donations[0][i],
+        donations: ethers.utils.formatEther(donations[1][i].toString())
+      })
+    }
+     return parsedDonations;
   }
 
   return (
@@ -59,7 +94,10 @@ export const StateContextProvider = ({ children }) => {
         address,
         contract,
         connectWallet,
+        donate,
         getCampaigns,
+        getUserCampaign,
+        getDonations,
         createCampaign: publishCampaign,
       }}
     >
